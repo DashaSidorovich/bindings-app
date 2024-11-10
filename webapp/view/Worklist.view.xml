@@ -4,16 +4,11 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:semantic="sap.f.semantic">
 
-	<semantic:SemanticPage
+	<Page
 		id="page"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false">
+		title="{i18n>worklistTitle}">
 
-		<semantic:titleHeading>
-			<Title text="{i18n>worklistTitle}" />
-		</semantic:titleHeading>
-
-		<semantic:content>
+		<content>
 			<Table
 				id="table"
 				width="auto"
@@ -24,6 +19,7 @@
 						descending: false
 					}
 				}"
+				growingThreshold="15"
 				noDataText="{worklistView>/tableNoDataText}"
 				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
 				growing="true"
@@ -44,8 +40,33 @@
 				</headerToolbar>
 
 				<columns>
-					<Column id="nameColumn">
-						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+					<Column id="nameColumnDocumentNumber">
+						<Text text="{i18n>tableNameColumnTitleDocumentNumber}" id="nameColumnTitleDocumentNumber"/>
+					</Column>
+				</columns>
+				<columns>
+					<Column id="nameColumnDocumentDate">
+						<Text text="{i18n>tableNameColumnTitleDocumentDate}" id="nameColumnTitleDocumentDate"/>
+					</Column>
+				</columns>
+				<columns>
+					<Column id="nameColumnPlantText">
+						<Text text="{i18n>tableNameColumnTitlePlantText}" id="nameColumnTitlePlantText"/>
+					</Column>
+				</columns>
+				<columns>
+					<Column id="nameColumnRegionText">
+						<Text text="{i18n>tableNameColumnTitleRegionText}" id="nameColumnTitleRegionText"/>
+					</Column>
+				</columns>
+				<columns>
+					<Column id="nameColumnDescription">
+						<Text text="{i18n>tableNameColumnTitleDescription}" id="nameColumnTitleDescription"/>
+					</Column>
+				</columns>
+				<columns>
+					<Column id="nameColumnCreated">
+						<Text text="{i18n>tableNameColumnTitleCreated}" id="nameColumnTitleCreated"/>
 					</Column>
 				</columns>
 
@@ -60,13 +81,8 @@
 					</ColumnListItem>
 				</items>
 			</Table>
-		</semantic:content>
+		</content>
 
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
-		</semantic:sendEmailAction>
-
-
-	</semantic:SemanticPage>
+	</Page>
 
 </mvc:View>
