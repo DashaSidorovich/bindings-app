@@ -4,8 +4,9 @@ sap.ui.define([
 		"sap/ui/model/json/JSONModel",
 		"zjblessons/bindingsApp/model/formatter",
 		"sap/ui/model/Filter",
-		"sap/ui/model/FilterOperator"
-	], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
+		"sap/ui/model/FilterOperator",
+		"sap/ui/model/Sorter"
+	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter) {
 		"use strict";
 
 		return BaseController.extend("zjblessons.bindingsApp.controller.Worklist", {
@@ -46,6 +47,7 @@ sap.ui.define([
 				oTable.bindItems({
 					path: '/zjblessons_base_Headers',
 					template: this._getTableTemplate(),
+
 					urlParameters: {
 						$select: 'HeaderId, DocumentNumber, DocumentDate, PlantText, RegionText, Description, Created'
 					},
@@ -84,6 +86,10 @@ sap.ui.define([
 						]
 				});
 				return oTemplate;
+			},
+			
+			onPressGroup(oEvent){
+				this.getView().byId("table").getBinding("items").sort([new Sorter('RegionText', true, true)]);
 			},
 
 

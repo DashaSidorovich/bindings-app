@@ -13,11 +13,7 @@
 				id="table"
 				width="auto"
 				items="{
-					path: '/zjblessons_base_Headers',
-					sorter: {
-						path: 'DocumentNumber',
-						descending: false
-					}
+					path: '/zjblessons_base_Headers'
 				}"
 				growingThreshold="15"
 				noDataText="{worklistView>/tableNoDataText}"
@@ -36,6 +32,12 @@
 							search="onSearch"
 							width="auto">
 						</SearchField>
+						<Button
+							icon='sap-icon://group-2'
+							type='Transparent'
+							press='onPressGroup'
+							tooltip='Group by RegionText'
+						/>
 					</Toolbar>
 				</headerToolbar>
 

@@ -68,6 +68,10 @@
 			},
 			"": {
 				"dataSource": "mainService",
+				"settings": {
+					"useBatch": false,
+					"defaultCountMode": "Inline"
+				},
 				"preload": true
 			}
 		},
