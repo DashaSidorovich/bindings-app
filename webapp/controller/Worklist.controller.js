@@ -51,10 +51,7 @@ sap.ui.define([
 					urlParameters: {
 						$select: 'HeaderId, DocumentNumber, DocumentDate, PlantText, RegionText, Description, Created'
 					},
-					events: {
-            			dataRequested: function () {
-            			}.bind(this) 
-        		}
+				
 				});
 			},
 
@@ -135,7 +132,7 @@ sap.ui.define([
 
 			onRefresh : function () {
 				var oTable = this.byId("table");
-				oTable.getBinding("items").refresh();
+				oTable.getBinding("items").refresh(true);
 			},
 
 
