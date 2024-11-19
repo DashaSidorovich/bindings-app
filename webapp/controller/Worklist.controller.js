@@ -29,7 +29,7 @@ sap.ui.define([
 		                RegionText: "Region1",
 		                Description: "Sample Description 1",
 		                Created: "2024-10-01",
-		                Order: 1 
+		                Order: 0
 		            },
 		            {
 		                HeaderId: "Header002",
@@ -39,7 +39,7 @@ sap.ui.define([
 		                RegionText: "Region2",
 		                Description: "Sample Description 4",
 		                Created: "2024-10-02",
-		                Order: 4
+		                Order: 1
 		            },
 		            {
 		                HeaderId: "Header003",
@@ -49,7 +49,7 @@ sap.ui.define([
 		                RegionText: "Region3",
 		                Description: "Sample Description 3",
 		                Created: "2024-10-02",
-		                Order: 3
+		                Order: 2
 		            },
 		            {
 		                HeaderId: "Header004",
@@ -59,7 +59,7 @@ sap.ui.define([
 		                RegionText: "Region4",
 		                Description: "Sample Description 4",
 		                Created: "2024-10-02",
-		                Order: 2
+		                Order: 3
 		            },
 		            {
 		                HeaderId: "Header005",
@@ -69,7 +69,7 @@ sap.ui.define([
 		                RegionText: "Region5",
 		                Description: "Sample Description 5",
 		                Created: "2024-10-02",
-		                Order: 0
+		                Order: 4
 		            }
 		        ]
 		    };
@@ -110,7 +110,7 @@ sap.ui.define([
 				
 				    var iDraggedOrder = oDraggedData.Order;
 				    var iDroppedOrder = oDroppedData.Order;
-				
+
 				    var iNewOrder = sDropPosition === "After" ? iDroppedOrder + 1 : iDroppedOrder;
 				
 				    oDraggedData.Order = iNewOrder;
@@ -136,6 +136,11 @@ sap.ui.define([
 			
 			onPressGroup(oEvent){
 				this.getView().byId("table").getBinding("items").sort([new Sorter('RegionText', true, true)]);
+			},
+			
+			onPressSort(oEvent){
+				this.getView().byId("table").getBinding("items").sort(
+					[new Sorter('DocumentNumber', false), new Sorter('Description', false)]);
 			},
 
 

@@ -34,6 +34,11 @@
 				<headerToolbar>
 					<Toolbar>
 						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
+						<Button
+							icon='sap-icon://refresh'
+							type='Transparent'
+							press='onPressRefresh'
+						/>
 						<ToolbarSpacer />
 						<SearchField
 							id="searchField"
@@ -41,6 +46,19 @@
 							search="onSearch"
 							width="auto">
 						</SearchField>
+						
+						<Button
+							icon='sap-icon://filter'
+							type='Transparent'
+							press='onPressFilter'
+							tooltip='Filter by DocumentNumber and PlantText'
+						/>
+						<Button
+							icon='sap-icon://sort'
+							type='Transparent'
+							press='onPressSort'
+							tooltip='Sort by DocumentNumber and Description'
+						/>
 						<Button
 							icon='sap-icon://group-2'
 							type='Transparent'
