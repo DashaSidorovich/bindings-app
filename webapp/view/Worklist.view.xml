@@ -38,6 +38,7 @@
 							icon='sap-icon://refresh'
 							type='Transparent'
 							press='onPressRefresh'
+							tooltip='Refresh'
 						/>
 						<ToolbarSpacer />
 						<SearchField
@@ -46,6 +47,7 @@
 							search="onSearch"
 							width="auto">
 						</SearchField>
+					
 						
 						<Button
 							icon='sap-icon://filter'

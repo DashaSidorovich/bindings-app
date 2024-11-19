@@ -5,8 +5,12 @@ sap.ui.define([
 		"zjblessons/bindingsApp/model/formatter",
 		"sap/ui/model/Filter",
 		"sap/ui/model/FilterOperator",
-		"sap/ui/model/Sorter"
-	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter) {
+		"sap/ui/model/Sorter",
+		"sap/ui/core/Fragment",
+		"sap/m/MessageBox"
+
+
+	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter, Fragment, MessageBox) {
 		"use strict";
 
 		return BaseController.extend("zjblessons.bindingsApp.controller.Worklist", {
@@ -142,6 +146,83 @@ sap.ui.define([
 				this.getView().byId("table").getBinding("items").sort(
 					[new Sorter('DocumentNumber', false), new Sorter('Description', false)]);
 			},
+			
+			onPressFilter: function(){
+				this._loadFilterDialog();
+			},
+			
+			_loadFilterDialog: async function() {
+			    this._oDialog ??= await Fragment.load({
+			        name: "zjblessons.bindingsApp.view.fragment.FilterDialog",
+			        controller: this, 
+			        id: "filterDialog"
+			    }).then(oDialog => {
+			    	this.getView().addDependent(this.oDialog);
+			    	oDialog.setModel(this.getView().getModel("i18n"), "i18n");
+			    	return oDialog;
+				});
+				
+				
+				this._oDialog.open();
+			},
+
+			
+			
+			onPressCancel: function(){
+				this._oDialog.close();
+			},
+ 
+			onDialogBeforeOpen: function(oEvent){
+
+			},
+			
+			onFilter: function(oEvent) {
+				const oContext = this._oDialog.getBindingContext();
+
+			    const oDateRange = Fragment.byId("filterDialog", "idDateRange");
+			    const oDescription = Fragment.byId("filterDialog", "idDescription");
+			    const oCheckbox = Fragment.byId("filterDialog", "idAndOr");
+
+			    const oDateFrom = oDateRange.getFrom();
+			    const oDateTo = oDateRange.getTo();
+			    
+			    const sContainDescription = oDescription.getValue();
+			    const bSelected = oCheckbox.getSelected();
+
+			    if (oDateFrom && oDateTo && sContainDescription) {
+			        const oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({pattern: "yyyy-MM-dd"});
+			        const sFormattedDateFrom = oDateFormat.format(oDateFrom);
+			        const sFormattedDateTo = oDateFormat.format(oDateTo);
+			
+			        const oTable = this.byId("table");
+			        const oBinding = oTable.getBinding("items");
+			    
+					
+			        oBinding.filter(new sap.ui.model.Filter({
+			        	filters: [
+			        		new Filter ({
+			        			path: "DocumentDate",
+			        			operator: sap.ui.model.FilterOperator.BT, 
+			        			value1: sFormattedDateFrom,
+			        			value2: sFormattedDateTo
+			        		}),
+			        		new Filter ({
+			        			path: "Description",
+			        			operator: sap.ui.model.FilterOperator.Contains, 
+			        			value1: sContainDescription
+			        		})
+			        		],
+			        		and: bSelected
+			           
+			        }));
+			        this._oDialog.close();
+
+			    }
+
+			    else {
+			    	sap.m.MessageBox.alert(this.getResourceBundle().getText("errorWithFilters"), {});
+			    }
+			},
 
 
 			onUpdateFinished : function (oEvent) {
@@ -182,11 +263,16 @@ sap.ui.define([
 				}
 
 			},
-
+			onPressRefresh: function () {
+				var oTable = this.byId("table");
+				var oBinding = oTable.getBinding("items");
+				oBinding.filter([]);  
+    			oBinding.refresh();
+			},
 
 			onRefresh : function () {
 				var oTable = this.byId("table");
-				oTable.getBinding("items").refresh(true);
+				oTable.getBinding("items").refresh();
 			},
 
 
