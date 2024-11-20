@@ -3,12 +3,15 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:dnd="sap.ui.core.dnd"
-	xmlns:semantic="sap.f.semantic">
+	xmlns:semantic="sap.f.semantic"
+	xmlns:wt="zjblessons.bindingsApp.controller.controls">
 
 	<Page
 		id="page"
 		title="{i18n>worklistTitle}">
-
+		<wt:AvatarAndLabel
+			id="avatarAndLabel"
+			class="sapUiSmallMargin"/>
 		<content>
 			<Table
 				id="table"
